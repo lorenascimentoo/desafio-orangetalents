@@ -15,6 +15,8 @@ import com.orangetalents.desafio.repositories.CidadeRepository;
 import com.orangetalents.desafio.repositories.EnderecoRepository;
 import com.orangetalents.desafio.repositories.EstadoRepository;
 import com.orangetalents.desafio.repositories.UsuarioRepository;
+import com.orangetalents.desafio.services.EnderecoService;
+import com.orangetalents.desafio.services.UsuarioService;
 
 @SpringBootApplication
 public class DesafioApplication implements CommandLineRunner{
@@ -26,6 +28,10 @@ public class DesafioApplication implements CommandLineRunner{
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	@Autowired
+	private UsuarioService userService;
+	@Autowired
+	private EnderecoService endService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(DesafioApplication.class, args);
@@ -58,5 +64,12 @@ public class DesafioApplication implements CommandLineRunner{
 		
 		usuarioRepository.saveAll(Arrays.asList(user1,user2));
 		enderecoRepository.saveAll(Arrays.asList(end1,end2));
+		
+		Usuario user3 = new Usuario(null, "Laura Fernanda", "laura@gmail.com", "69635214782", "25/05/1938");
+		Endereco end3 = new Endereco(null, "Rua dos Cactos", "20", "", "Campina", cid3, "6900254", user3);
+	
+		userService.insert(user3);
+		endService.insert(end3);
+		
 	}
 }
