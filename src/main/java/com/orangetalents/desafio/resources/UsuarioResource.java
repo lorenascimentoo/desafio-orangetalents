@@ -11,26 +11,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.orangetalents.desafio.domain.Endereco;
 import com.orangetalents.desafio.domain.Usuario;
-import com.orangetalents.desafio.services.EnderecoService;
+import com.orangetalents.desafio.dto.UsuarioDTO;
 import com.orangetalents.desafio.services.UsuarioService;
+import com.orangetalents.desafio.services.exceptions.ObjectNotFoundException;
 
 @RestController
-@RequestMapping(value = "/usuarios/{id}/enderecos")
+@RequestMapping(value = "/usuarios")
 public class UsuarioResource {
 	@Autowired
-	private EnderecoService service;
-	@Autowired
-	private UsuarioService userService;
-
+	private UsuarioService service;
+		
+		@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+		public ResponseEntity<Usuario> find(@PathVariable Integer id) throws ObjectNotFoundException{
+			Usuario obj = service.find(id);
+			return ResponseEntity.ok().body(obj);
+		}
+		
 		@RequestMapping(method = RequestMethod.POST)
-		public ResponseEntity<Void> insert(@RequestBody @PathVariable Integer id, Endereco obj) {
-			Usuario user = userService.find(id);
-			obj.setId(null);
-			obj.setUsuario(user);
-			obj = service.insert(obj);
-			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		public ResponseEntity<Void> insert(@RequestBody UsuarioDTO obj) {
+			Usuario user = service.fromDTO(obj);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 			return ResponseEntity.created(uri).build();
 		}
+		
 }
