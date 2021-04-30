@@ -2,6 +2,8 @@ package com.orangetalents.desafio.resources;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +31,7 @@ public class UsuarioResource {
 		}
 		
 		@RequestMapping(method = RequestMethod.POST)
-		public ResponseEntity<Void> insert(@RequestBody UsuarioDTO obj) {
+		public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioDTO obj){
 			Usuario user = service.fromDTO(obj);
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 			return ResponseEntity.created(uri).build();

@@ -2,20 +2,32 @@ package com.orangetalents.desafio.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 public class UsuarioDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String nome;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String email;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String cpf;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String dtnasc;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private Integer cidadeId;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String logradouro;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String numero;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String complemento;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String bairro;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String cep;
 	
 	public UsuarioDTO() {

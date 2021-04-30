@@ -2,6 +2,8 @@ package com.orangetalents.desafio.resources;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +24,7 @@ public class EnderecoResource {
 		private EnderecoService service;
 
 			@RequestMapping(method = RequestMethod.POST)
-			public ResponseEntity<Void> insert( @PathVariable Integer id, @RequestBody EnderecoDTO obj) {
+			public ResponseEntity<Void> insert(@PathVariable Integer id, @Valid @RequestBody EnderecoDTO obj) {
 				obj.setUsuarioId(id);
 				Endereco end = service.fromDTO(obj);
 				URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(end.getId()).toUri();

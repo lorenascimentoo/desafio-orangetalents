@@ -30,10 +30,10 @@ public class UsuarioService {
 	}
 	
 	public Usuario insert(Usuario obj) {
-		obj.setId(null);
-		obj = repo.save(obj);
-		endRepo.saveAll(obj.getEnderecos());
-		return obj;
+			obj.setId(null);
+			obj = repo.save(obj);
+			endRepo.saveAll(obj.getEnderecos());
+			return obj;
 	}
 	
 	public Usuario update(Usuario obj) {
@@ -47,14 +47,14 @@ public class UsuarioService {
 		newObj.setEmail(obj.getEmail());
 	}
 	
-	public Usuario fromDTO(UsuarioDTO obj) {
-		Cidade cidade = cid.find(obj.getCidadeId()); 
-		Usuario usuario = new Usuario(null, obj.getNome(), obj.getEmail(), obj.getCpf(), obj.getDtnasc());
-		Endereco end = new Endereco(null, obj.getLogradouro(), obj.getNumero(), obj.getComplemento(), obj.getBairro(), cidade, obj.getCep(), usuario);
-		usuario.getEnderecos().add(end);
-		repo.save(usuario);
-		endRepo.save(end);
-		return usuario;
+	public Usuario fromDTO(UsuarioDTO obj){
+			Cidade cidade = cid.find(obj.getCidadeId()); 
+			Usuario usuario = new Usuario(null, obj.getNome(), obj.getEmail(), obj.getCpf(), obj.getDtnasc());
+			Endereco end = new Endereco(null, obj.getLogradouro(), obj.getNumero(), obj.getComplemento(), obj.getBairro(), cidade, obj.getCep(), usuario);
+			usuario.getEnderecos().add(end);
+			repo.save(usuario);
+			endRepo.save(end);
+			return usuario;
 	}
 	
 	
